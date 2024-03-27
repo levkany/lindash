@@ -1,14 +1,27 @@
 import argparse
-from commands import system
 from core.command_chain import CommandChain
+import config
+import logging
+import importlib
 
 
-def handle_exec(c:str):
+logger = logging.getLogger(__name__)
+
+
+def handle_exec(args:str) -> str:
     """callback for command execution"""
+    
+    if args.c not in config.ALLOWED_COMMANDS:
+        logger.error(f"(error: 4001) - \"{args.c}\" Command is not allowed to be executed")
+        exit(4001)
+        
+    module = importlib.import_module("commands")
+    func = getattr(module, args.c)
 
     chain = CommandChain([
-        system.total_cores
+        func
     ])
+    
     output = chain.execute()
     print(output)
 
