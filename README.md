@@ -1,11 +1,11 @@
 # lindash - powerful linux cli tool for servers
 
-**starting lindash**
+**install lindash**
 ```
-python3 lindash.py start 0.0.0.0:8888
+pip3 install lindash
 ```
 
-**connecting to lindash**
+**lindash usage**
 ```
-python3 lindash.py get 0.0.0.0:8888
+lindash -c total_cores
 ```
