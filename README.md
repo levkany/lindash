@@ -1,4 +1,4 @@
-# lindash - powerful linux cli tool for servers
+# lindash - linux cli tool for servers
 
 **install lindash**
 ```
