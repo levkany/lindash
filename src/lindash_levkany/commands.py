@@ -1,23 +1,19 @@
 from core.command import Command
 from core.command import CommandType
+import subprocess
 
 
 list_dir = Command(
     CommandType.READ,
-    'ls -l'
-)
-
-list_dir_hidden = Command(
-    CommandType.READ,
-    'ls -la'
-)
-
-clear = Command(
-    CommandType.READ,
-    'clear'
+    lambda: subprocess.check_output("ls -l", shell=True)
 )
 
 total_cores = Command(
     CommandType.READ,
-    'nproc --all'
+    lambda: subprocess.check_output("nproc --all", shell=True)
+)
+
+get_python_install_at = Command(
+    CommandType.READ,
+    lambda: subprocess.check_output("which python3", shell=True)
 )

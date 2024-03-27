@@ -8,14 +8,14 @@ class CommandType(IntEnum):
 
 
 class Command():
-    def __init__(self, type:CommandType=CommandType.READ, cmd:str=None):
+    def __init__(self, type:CommandType=CommandType.READ, func:object=None):
         self.__type = type
-        self.__cmd = cmd
-        
+        self.__func = func
+                
         
     @property
-    def cmd(self):
-        return self.__cmd
+    def func(self):
+        return self.__func
     
         
     @property
@@ -28,6 +28,8 @@ class Command():
         self.__type == type
     
         
-    def execute(self, cmd:str=None) -> int:
-        return subprocess.check_output(cmd or self.__cmd, shell=True)
-        
+    def execute(self, func:object=None) -> int:
+        if func:
+            return func()
+
+        return self.__func()
