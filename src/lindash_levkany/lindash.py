@@ -14,16 +14,24 @@ def handle_exec(args:str) -> str:
     chain = CommandChain()
     
     for c in args.c:    
+        func = None
+        
+        try:
+            func = getattr(commands, c)
+            
+        except:
+            logger.error(f"(error: 4002) - \"{c}\" Command is not found")
+            exit(4002)
+            
         if c not in config.ALLOWED_COMMANDS:
             logger.error(f"(error: 4001) - \"{c}\" Command is not allowed to be executed")
             exit(4001)
             
-        func = getattr(commands, c)
-        chain.add(func)
     
+        chain.add(func)
+
     output = chain.execute()
     print(output)
-
 
 parser = argparse.ArgumentParser(
     prog='Lindash - 0.0.1',
